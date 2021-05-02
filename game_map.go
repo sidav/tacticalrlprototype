@@ -44,6 +44,16 @@ func (dung *gameMap) getPawnAt(x, y int) *pawn {
 	return nil
 }
 
+func (dung *gameMap) spitBloodAt(xx, yy int) {
+	for x := -1; x <= 1; x++ {
+		for y := -1; y <= 1; y++ {
+			if rnd.OneChanceFrom(3) {
+				CURRENT_MAP.tiles[xx+x][yy+y].isBloody = true
+			}
+		}
+	}
+}
+
 func (d *gameMap) removePawn(p *pawn) {
 	for i := 0; i < len(d.pawns); i++ {
 		if p == d.pawns[i] {
@@ -86,8 +96,11 @@ func (dung *gameMap) movePawnOrOpenDoorByVector(p *pawn, mayOpenDoor bool, vx, v
 	x += vx; y += vy
 	if dung.isTilePassableAndNotOccupied(x, y) {
 		p.x = x; p.y = y
+		p.performPassbyAttacks()
+		p.setupPassbyAttack()
 		return true
 	}
+	p.setupPassbyAttack()
 	if dung.isTileADoor(x, y) && mayOpenDoor {
 		dung.tiles[x][y].isOpened = true
 		return true

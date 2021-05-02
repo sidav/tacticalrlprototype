@@ -43,7 +43,7 @@ func (l *GameLog) AppendMessage(msg string) {
 }
 
 func (l *GameLog) AppendMessagef(msg string, zomg ...interface{}) {
-	msg = fmt.Sprintf(msg, zomg)
+	msg = fmt.Sprintf(msg, zomg...)
 	l.AppendMessage(msg)
 }
 

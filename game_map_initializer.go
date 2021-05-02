@@ -66,6 +66,7 @@ func (dung *gameMap) spawnPlayerAtRandomPosition() {
 		x:             1,
 		y:             1,
 		nextTurnToAct: 0,
+		passbyAttack:  &passbyAttack{},
 	}
 }
 

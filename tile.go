@@ -13,10 +13,10 @@ const (
 
 type tileStaticData struct {
 	isPassable, isOpaque bool
-	appearance *consoleCell
+	appearance           *consoleCell
 }
 
-var tileStaticTable = map[tileCode] tileStaticData {
+var tileStaticTable = map[tileCode]tileStaticData{
 	TILE_UNDEFINED: {
 		isPassable: false,
 		isOpaque:   false,
@@ -56,9 +56,10 @@ var tileStaticTable = map[tileCode] tileStaticData {
 }
 
 type d_tile struct {
-	code tileCode
+	code            tileCode
+	isBloody        bool
 	wasSeenByPlayer bool
-	isOpened bool
+	isOpened        bool
 }
 
 func (t *d_tile) getAppearance() *consoleCell {

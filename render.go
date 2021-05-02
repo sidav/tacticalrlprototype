@@ -97,6 +97,9 @@ func (r *renderer) renderLevel(d *gameMap, flush bool) {
 			}
 			cellRune := d.tiles[x][y].getAppearance().appearance
 			cellColor := d.tiles[x][y].getAppearance().color
+			if d.tiles[x][y].isBloody {
+				cellColor = cw.RED
+			}
 			if r.RENDER_DISABLE_LOS || vismap[x][y] {
 				d.tiles[x][y].wasSeenByPlayer = true
 				invert := d.tiles[x][y].getAppearance().inverse

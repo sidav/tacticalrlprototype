@@ -42,10 +42,17 @@ func (g *game) runGame() {
 		}
 
 		// check if pawns should be removed
-		for i := 0; i < len(CURRENT_MAP.pawns); i++ {
-			if CURRENT_MAP.pawns[i].isTimeToAct() {
+		for _, pwn := range CURRENT_MAP.pawns {
+			if pwn.hp > pwn.getStaticData().maxhp {
+				pwn.hp = pwn.getStaticData().maxhp
+			}
+			if pwn.isDead() {
+				CURRENT_MAP.spitBloodAt(pwn.x, pwn.y)
+				CURRENT_MAP.removePawn(pwn)
+			}
+			if pwn.isTimeToAct() {
 				// act for pawns here
-				CURRENT_MAP.pawns[i].actAsPawn()
+				pwn.actAsPawn()
 			}
 		}
 		CURRENT_TURN++
