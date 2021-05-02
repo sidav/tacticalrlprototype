@@ -5,7 +5,9 @@ type (
 		code                    pawnCode
 		ai                      *ai
 		hp, x, y, nextTurnToAct int
+
 		plannedSpecialAttack    *specialAttack
+		passbyAttack            *passbyAttack
 	}
 )
 
@@ -36,6 +38,14 @@ func (p *pawn) getHpPercent() int {
 func (p *pawn) checkAndPerformSpecialAttack() {
 	if p.plannedSpecialAttack != nil {
 		log.AppendMessage("Wow!")
-		p.plannedSpecialAttack = nil
+		// p.plannedSpecialAttack = nil
+	}
+}
+
+func (p *pawn) performPassbyAttacks() {
+	for _, targ := range p.passbyAttack.pawnsInRangeAtPrevTurn {
+		if euclideanDistance(p.x, p.y, targ.x, targ.y) <= 2 {
+			log.AppendMessagef("%s passby-attacked %s", p.getStaticData().name, targ.getStaticData().name)
+		}
 	}
 }

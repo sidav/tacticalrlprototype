@@ -42,7 +42,7 @@ func (l *GameLog) AppendMessage(msg string) {
 	l.logWasChanged = true
 }
 
-func (l *GameLog) AppendMessagef(msg string, zomg interface{}) {
+func (l *GameLog) AppendMessagef(msg string, zomg ...interface{}) {
 	msg = fmt.Sprintf(msg, zomg)
 	l.AppendMessage(msg)
 }

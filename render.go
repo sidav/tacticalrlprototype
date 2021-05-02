@@ -137,7 +137,7 @@ func (r *renderer) renderLevel(d *gameMap, flush bool) {
 	//render pawns
 	for _, pawn := range d.pawns {
 		if r.RENDER_DISABLE_LOS || vismap[pawn.x][pawn.y] {
-			r.renderPawn(pawn, false)
+			r.renderPawn(pawn, r.areCoordsInInverseList(pawn.x, pawn.y))
 		}
 	}
 
@@ -168,7 +168,11 @@ func (r *renderer) renderLevel(d *gameMap, flush bool) {
 func (r *renderer) renderPawn(p *pawn, inverse bool) {
 	app := p.getStaticData().ccell.appearance
 	clr := p.getStaticData().ccell.color
-	cw.SetFgColor(clr)
+	if inverse {
+		cw.SetColor(cw.BLACK, clr)
+	} else {
+		cw.SetFgColor(clr)
+	}
 	x, y := r.r_CoordsToViewport(p.x, p.y)
 	cw.PutChar(app, x, y)
 	cw.SetBgColor(cw.BLACK)

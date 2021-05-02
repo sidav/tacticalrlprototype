@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/sidav/golibrl/random/additive_random"
-	log2 "gorltemplate/game_log"
+	log2 "tacticalrlprototype/game_log"
 )
 
 var (
