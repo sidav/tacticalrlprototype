@@ -62,11 +62,13 @@ func (dung *gameMap) MakeMapFromGenerated(generated_map *[]string) {
 func (dung *gameMap) spawnPlayerAtRandomPosition() {
 	CURRENT_MAP.player = &pawn{
 		code:          PAWN_PLAYER,
-		hp:            5,
+		hp:            999,
 		x:             1,
 		y:             1,
 		nextTurnToAct: 0,
-		passbyAttack:  &passbyAttack{},
+		passbyAttack:  &specialAttack{
+			code: SA_PASSBY,
+		},
 	}
 }
 

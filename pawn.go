@@ -7,7 +7,7 @@ type (
 		hp, x, y, nextTurnToAct int
 
 		plannedSpecialAttack    *specialAttack
-		passbyAttack            *passbyAttack
+		passbyAttack            *specialAttack
 	}
 )
 
@@ -33,32 +33,4 @@ func (p *pawn) getCoords() (int, int) {
 
 func (p *pawn) getHpPercent() int {
 	return p.hp * 100 / p.getStaticData().maxhp
-}
-
-func (p *pawn) checkAndPerformSpecialAttack() {
-	if p.plannedSpecialAttack != nil {
-		log.AppendMessage("Wow!")
-		// p.plannedSpecialAttack = nil
-	}
-}
-
-func (p *pawn) setupPassbyAttack() {
-	p.passbyAttack.pawnsInRangeAtPrevTurn = []*pawn{}
-	for x := -1; x <= 1; x++ {
-		for y := -1; y <= 1; y++ {
-			pAt := CURRENT_MAP.getPawnAt(p.x+x, p.y+y)
-			if pAt != nil && pAt != p {
-				p.passbyAttack.pawnsInRangeAtPrevTurn = append(p.passbyAttack.pawnsInRangeAtPrevTurn, pAt)
-			}
-		}
-	}
-}
-
-func (p *pawn) performPassbyAttacks() {
-	for _, targ := range p.passbyAttack.pawnsInRangeAtPrevTurn {
-		if euclideanDistance(p.x, p.y, targ.x, targ.y) <= 2 {
-			log.AppendMessagef("%s passby-attacked %s for 5 damage", p.getStaticData().name, targ.getStaticData().name)
-			targ.hp -= 5 
-		}
-	}
 }
