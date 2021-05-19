@@ -47,11 +47,12 @@ func (dung *gameMap) getPawnAt(x, y int) *pawn {
 func (dung *gameMap) spitBloodAt(xx, yy int) {
 	for x := -1; x <= 1; x++ {
 		for y := -1; y <= 1; y++ {
-			if rnd.OneChanceFrom(3) {
+			if rnd.OneChanceFrom(4) {
 				CURRENT_MAP.tiles[xx+x][yy+y].isBloody = true
 			}
 		}
 	}
+	CURRENT_MAP.tiles[xx][yy].isBloody = true
 }
 
 func (d *gameMap) removePawn(p *pawn) {
@@ -96,13 +97,14 @@ func (dung *gameMap) movePawnOrOpenDoorByVector(p *pawn, mayOpenDoor bool, vx, v
 	x += vx; y += vy
 	if dung.isTilePassableAndNotOccupied(x, y) {
 		p.x = x; p.y = y
-		p.performPassbyAttacks()
 		p.setupPassbyAttack()
+		p.spendTurnsForAction(p.getStaticData().moveDelay)
 		return true
 	}
 	p.setupPassbyAttack()
 	if dung.isTileADoor(x, y) && mayOpenDoor {
 		dung.tiles[x][y].isOpened = true
+		p.spendTurnsForAction(p.getStaticData().moveDelay)
 		return true
 	}
 	return false

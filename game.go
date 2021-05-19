@@ -37,10 +37,10 @@ func (g *game) runGame() {
 	for GAME_IS_RUNNING {
 		rend.renderLevel(&CURRENT_MAP, true)
 		CURRENT_MAP.player.checkAndPerformSpecialAttack()
+		CURRENT_MAP.player.performPassbyAttacks()
 		for CURRENT_MAP.player.isTimeToAct() && GAME_IS_RUNNING {
 			pc.playerControl(&CURRENT_MAP)
 		}
-
 		// check if pawns should be removed
 		for _, pwn := range CURRENT_MAP.pawns {
 			if pwn.hp > pwn.getStaticData().maxhp {

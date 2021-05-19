@@ -9,6 +9,9 @@ func (p *pawn) checkAndPerformSpecialAttack() {
 }
 
 func (p *pawn) setupPassbyAttack() {
+	if p.passbyAttack == nil {
+		return
+	}
 	if p.passbyAttack.getRemainingCD() > 10 {
 		return
 	}
@@ -24,6 +27,9 @@ func (p *pawn) setupPassbyAttack() {
 }
 
 func (p *pawn) performPassbyAttacks() {
+	if p.passbyAttack == nil {
+		return
+	}
 	if p.passbyAttack.getRemainingCD() > 0 {
 		return
 	}

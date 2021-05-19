@@ -11,15 +11,17 @@ const (
 )
 
 type pawnStaticData struct {
-	name  string
-	maxhp int
-	ccell consoleCell
+	name      string
+	maxhp     int
+	moveDelay int
+	ccell     consoleCell
 }
 
 var pawnsStaticData = map[pawnCode]*pawnStaticData{
 	PAWN_WEAKLING: {
 		name:  "Weakling",
 		maxhp: 1,
+		moveDelay: 15,
 		ccell: consoleCell{
 			appearance: 'w',
 			color:      cw.BEIGE,
@@ -28,6 +30,7 @@ var pawnsStaticData = map[pawnCode]*pawnStaticData{
 	PAWN_PLAYER: {
 		name:  "Player",
 		maxhp: 10,
+		moveDelay: 10,
 		ccell: consoleCell{
 			appearance: '@',
 			color:      cw.BEIGE,
@@ -36,6 +39,7 @@ var pawnsStaticData = map[pawnCode]*pawnStaticData{
 	PAWN_SWORDSMAN: {
 		name:  "Swordsman",
 		maxhp: 5,
+		moveDelay: 11,
 		ccell: consoleCell{
 			appearance: 's',
 			color:      cw.BEIGE,
